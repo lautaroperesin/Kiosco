@@ -23,15 +23,10 @@ namespace Backend.Controllers
 
         // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes([FromQuery] string? filtro="")
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes([FromQuery] string? filtro = "")
         {
-            if (filtro != null)
-            {
-                return await _context.Clientes.Include(c => c.Localidad)
-                    .Where(c => c.Nombre.ToUpper().Contains(filtro.ToUpper()))
-                    .ToListAsync();
-            }
             return await _context.Clientes.Include(c => c.Localidad)
+                .Where(c => c.Nombre.ToUpper().Contains(filtro.ToUpper()))
                 .ToListAsync();
         }
 
@@ -54,10 +49,13 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int? id, Cliente cliente)
         {
-            if(id==null || cliente == null)
+            if(id==null)
             {
-                //throw new ArgumentNullException();
                 return BadRequest();
+            }
+            if (cliente == null)
+            {
+                throw new ArgumentNullException();
             }
             if (id != cliente.Id)
             {

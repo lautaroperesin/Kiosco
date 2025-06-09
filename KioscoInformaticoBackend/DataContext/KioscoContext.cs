@@ -47,7 +47,7 @@ public partial class KioscoContext : DbContext
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
-            string? cadenaConexion = configuration.GetConnectionString("mysqlRemoto");
+            string? cadenaConexion = configuration.GetConnectionString("mysqlLocal");
 
             optionsBuilder.UseMySql(cadenaConexion, ServerVersion.AutoDetect(cadenaConexion));
         }

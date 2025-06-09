@@ -157,7 +157,6 @@
             txtFiltro.Name = "txtFiltro";
             txtFiltro.Size = new Size(483, 27);
             txtFiltro.TabIndex = 11;
-            txtFiltro.TextChanged += txtFiltro_TextChanged;
             // 
             // btnEliminar
             // 
@@ -317,10 +316,6 @@
 
         private Panel panel1;
         private Label label1;
-        private TabControl tabControl;
-        private TabPage tabPageLista;
-        private DataGridView dataGridLocalidades;
-        private TabPage tabPageAgregarEditar;
         private TextBox txtNombre;
         private Label label2;
         private FontAwesome.Sharp.IconButton btnCancelar;
@@ -331,6 +326,10 @@
         private FontAwesome.Sharp.IconButton iconButtonSalir;
         private FontAwesome.Sharp.IconButton BtnBuscar;
         private Label label3;
-        private TextBox txtFiltro;
+        public TextBox txtFiltro;
+        public DataGridView dataGridLocalidades;
+        public TabControl tabControl;
+        public TabPage tabPageAgregarEditar;
+        public TabPage tabPageLista;
     }
 }
