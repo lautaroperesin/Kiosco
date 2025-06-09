@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
+using Service.Models;
 
 namespace Desktop.States.Localidades
 {
@@ -19,10 +20,27 @@ namespace Desktop.States.Localidades
 
         public void OnCancelar()
         {
+            _form.txtNombre.Clear();
+            _form.SetState(_form.initialDisplayState);
+            _form.currentState.UpdateUI();
         }
 
-        public void OnGuardar()
+        public async void OnGuardar()
         {
+            if (string.IsNullOrEmpty(_form.txtNombre.Text))
+            {
+                MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var localidad = new Localidad
+            {
+                Nombre = _form.txtNombre.Text
+            };
+            await _form.localidadService.AddAsync(localidad);
+
+            _form.SetState(_form.initialDisplayState);
+            await _form.currentState.UpdateUI();
         }
 
         public Task UpdateUI()
@@ -31,7 +49,11 @@ namespace Desktop.States.Localidades
             return Task.CompletedTask;
         }
 
-        public void OnAgregar() {}
+        public void OnAgregar() 
+        {
+            UpdateUI();
+        }
+
         public void OnEditar() {}
         public void OnBuscar() {}
         public void OnEliminar() {}

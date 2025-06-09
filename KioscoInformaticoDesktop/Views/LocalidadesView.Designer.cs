@@ -316,7 +316,6 @@
 
         private Panel panel1;
         private Label label1;
-        private TextBox txtNombre;
         private Label label2;
         private FontAwesome.Sharp.IconButton btnCancelar;
         private FontAwesome.Sharp.IconButton btnGuardar;
@@ -331,5 +330,6 @@
         public TabControl tabControl;
         public TabPage tabPageAgregarEditar;
         public TabPage tabPageLista;
+        public TextBox txtNombre;
     }
 }
