@@ -7,13 +7,13 @@ using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
 using Service.Models;
 
-namespace Desktop.States.Localidades
+namespace Desktop.States.Productos
 {
     public class EditState : IFormState
     {
-        private LocalidadesView _form;
+        private ProductosView _form;
 
-        public EditState(LocalidadesView form)
+        public EditState(ProductosView form)
         {
             _form = form;
         }
@@ -28,12 +28,14 @@ namespace Desktop.States.Localidades
         {
             if (string.IsNullOrEmpty(_form.txtNombre.Text))
             {
-                MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El nombre de la producto es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _form.localidadCurrent.Nombre = _form.txtNombre.Text;
-            await _form.localidadService.UpdateAsync(_form.localidadCurrent);
+            _form.productoCurrent.Nombre = _form.txtNombre.Text;
+            _form.productoCurrent.Precio = _form.numericPrecio.Value;
+
+            await _form.productoService.UpdateAsync(_form.productoCurrent);
 
             _form.SetState(_form.initialDisplayState);
             await _form.currentState.UpdateUI();
@@ -41,8 +43,10 @@ namespace Desktop.States.Localidades
 
         public Task UpdateUI()
         {
-            _form.localidadCurrent = _form.dataGridLocalidades.CurrentRow?.DataBoundItem as Localidad;
-            _form.txtNombre.Text = _form.localidadCurrent.Nombre;
+            _form.productoCurrent = _form.dataGridProductos.CurrentRow?.DataBoundItem as Producto;
+            _form.txtNombre.Text = _form.productoCurrent.Nombre;
+            _form.numericPrecio.Value = _form.productoCurrent.Precio;
+
             _form.tabControl.SelectTab(_form.tabPageAgregarEditar);
             _form.tabControl.Selecting += (sender, e) =>
             {

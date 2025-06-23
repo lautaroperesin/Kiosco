@@ -49,7 +49,7 @@ namespace KioscoInformaticoDesktop.Views
             currentState.OnAgregar();
         }
 
-        private async void btnGuardar_Click(object sender, EventArgs e)
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
             currentState.OnGuardar();
         }
@@ -60,7 +60,7 @@ namespace KioscoInformaticoDesktop.Views
             currentState.OnEditar();
         }
 
-        private async void btnEliminar_Click(object sender, EventArgs e)
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
             SetState(deleteState);
             currentState.OnEliminar();
@@ -74,6 +74,11 @@ namespace KioscoInformaticoDesktop.Views
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
             currentState.OnBuscar();
+        }
+
+        private void iconButtonSalir_Click(object sender, EventArgs e)
+        {
+            currentState.OnSalir();
         }
     }
 }

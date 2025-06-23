@@ -8,12 +8,12 @@ using KioscoInformaticoDesktop.Views;
 using Service.Interfaces;
 using Service.Services;
 
-namespace Desktop.States.Localidades
+namespace Desktop.States.Clientes
 {
     public class InitialDisplayState : IFormState
     {
-        private LocalidadesView _form;
-        public InitialDisplayState(LocalidadesView form) 
+        private ClientesView _form;
+        public InitialDisplayState(ClientesView form) 
         {
             _form = form;
         }
@@ -30,8 +30,8 @@ namespace Desktop.States.Localidades
 
         public async Task UpdateUI()
         {
-            _form.listaLocalidades.DataSource = await _form.localidadService.GetAllAsync(_form.txtFiltro.Text);
-            _form.dataGridLocalidades.DataSource = _form.listaLocalidades;
+            _form.listaClientes.DataSource = await _form.clienteService.GetAllAsync(_form.txtFiltro.Text);
+            _form.dataGridClientes.DataSource = _form.listaClientes;
             _form.tabControl.SelectTab(_form.tabPageLista);
             _form.tabControl.Selecting += (sender, e) =>
             {

@@ -5,21 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
+using Service.Interfaces;
 using Service.Models;
+using Service.Services;
 
-namespace Desktop.States.Localidades
+namespace Desktop.States.Productos
 {
-    public class EditState : IFormState
+    public class AddState : IFormState
     {
-        private LocalidadesView _form;
+        private ProductosView _form;
 
-        public EditState(LocalidadesView form)
+        public AddState(ProductosView form)
         {
             _form = form;
         }
+
         public void OnCancelar()
         {
             _form.txtNombre.Clear();
+            _form.numericPrecio.Value = 0;
             _form.SetState(_form.initialDisplayState);
             _form.currentState.UpdateUI();
         }
@@ -28,12 +32,16 @@ namespace Desktop.States.Localidades
         {
             if (string.IsNullOrEmpty(_form.txtNombre.Text))
             {
-                MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El nombre del producto es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _form.localidadCurrent.Nombre = _form.txtNombre.Text;
-            await _form.localidadService.UpdateAsync(_form.localidadCurrent);
+            var producto = new Producto
+            {
+                Nombre = _form.txtNombre.Text,
+                Precio = _form.numericPrecio.Value
+            };
+            await _form.productoService.AddAsync(producto);
 
             _form.SetState(_form.initialDisplayState);
             await _form.currentState.UpdateUI();
@@ -41,8 +49,9 @@ namespace Desktop.States.Localidades
 
         public Task UpdateUI()
         {
-            _form.localidadCurrent = _form.dataGridLocalidades.CurrentRow?.DataBoundItem as Localidad;
-            _form.txtNombre.Text = _form.localidadCurrent.Nombre;
+            _form.txtNombre.Text = string.Empty;
+            _form.numericPrecio.Value = 0;
+
             _form.tabControl.SelectTab(_form.tabPageAgregarEditar);
             _form.tabControl.Selecting += (sender, e) =>
             {
@@ -54,13 +63,14 @@ namespace Desktop.States.Localidades
             return Task.CompletedTask;
         }
 
-        public void OnEditar() 
+        public void OnAgregar() 
         {
             UpdateUI();
         }
-        public void OnAgregar() {}
-        public void OnBuscar() { }
-        public void OnEliminar() { }
-        public void OnSalir() { }
+
+        public void OnEditar() {}
+        public void OnBuscar() {}
+        public void OnEliminar() {}
+        public void OnSalir() {}
     }
 }

@@ -122,6 +122,7 @@
             iconButtonSalir.Text = "&Salir";
             iconButtonSalir.TextAlign = ContentAlignment.MiddleRight;
             iconButtonSalir.UseVisualStyleBackColor = false;
+            iconButtonSalir.Click += iconButtonSalir_Click;
             // 
             // BtnBuscar
             // 

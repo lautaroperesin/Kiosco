@@ -7,13 +7,13 @@ using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
 using Service.Models;
 
-namespace Desktop.States.Localidades
+namespace Desktop.States.Clientes
 {
     public class EditState : IFormState
     {
-        private LocalidadesView _form;
+        private ClientesView _form;
 
-        public EditState(LocalidadesView form)
+        public EditState(ClientesView form)
         {
             _form = form;
         }
@@ -28,12 +28,16 @@ namespace Desktop.States.Localidades
         {
             if (string.IsNullOrEmpty(_form.txtNombre.Text))
             {
-                MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El nombre de la cliente es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _form.localidadCurrent.Nombre = _form.txtNombre.Text;
-            await _form.localidadService.UpdateAsync(_form.localidadCurrent);
+            _form.clienteCurrent.Nombre = _form.txtNombre.Text;
+            _form.clienteCurrent.Direccion = _form.txtDireccion.Text;
+            _form.clienteCurrent.Telefonos = _form.txtTelefonos.Text;
+            _form.clienteCurrent.LocalidadId = (int)_form.comboLocalidades.SelectedValue;
+            _form.clienteCurrent.FechaNacimiento = _form.dateTimeFechaNacimiento.Value;
+            await _form.clienteService.UpdateAsync(_form.clienteCurrent);
 
             _form.SetState(_form.initialDisplayState);
             await _form.currentState.UpdateUI();
@@ -41,8 +45,13 @@ namespace Desktop.States.Localidades
 
         public Task UpdateUI()
         {
-            _form.localidadCurrent = _form.dataGridLocalidades.CurrentRow?.DataBoundItem as Localidad;
-            _form.txtNombre.Text = _form.localidadCurrent.Nombre;
+            _form.clienteCurrent = _form.dataGridClientes.CurrentRow?.DataBoundItem as Cliente;
+            _form.txtNombre.Text = _form.clienteCurrent.Nombre;
+            _form.txtDireccion.Text = _form.clienteCurrent.Direccion;
+            _form.txtTelefonos.Text = _form.clienteCurrent.Telefonos;
+            _form.dateTimeFechaNacimiento.Value = _form.clienteCurrent.FechaNacimiento;
+            _form.comboLocalidades.SelectedValue = _form.clienteCurrent.LocalidadId;
+
             _form.tabControl.SelectTab(_form.tabPageAgregarEditar);
             _form.tabControl.Selecting += (sender, e) =>
             {

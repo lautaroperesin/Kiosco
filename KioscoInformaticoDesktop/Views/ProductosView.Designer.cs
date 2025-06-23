@@ -40,7 +40,7 @@
             iconButtonEliminar = new FontAwesome.Sharp.IconButton();
             iconButtonEditar = new FontAwesome.Sharp.IconButton();
             iconButtonAgregar = new FontAwesome.Sharp.IconButton();
-            dataGridProductosView = new DataGridView();
+            dataGridProductos = new DataGridView();
             tabPageAgregarEditar = new TabPage();
             numericPrecio = new NumericUpDown();
             txtPrecio = new Label();
@@ -51,7 +51,7 @@
             panel1.SuspendLayout();
             tabControl.SuspendLayout();
             tabPageLista.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductosView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProductos).BeginInit();
             tabPageAgregarEditar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericPrecio).BeginInit();
             SuspendLayout();
@@ -98,7 +98,7 @@
             tabPageLista.Controls.Add(iconButtonEliminar);
             tabPageLista.Controls.Add(iconButtonEditar);
             tabPageLista.Controls.Add(iconButtonAgregar);
-            tabPageLista.Controls.Add(dataGridProductosView);
+            tabPageLista.Controls.Add(dataGridProductos);
             tabPageLista.Location = new Point(4, 29);
             tabPageLista.Margin = new Padding(3, 4, 3, 4);
             tabPageLista.Name = "tabPageLista";
@@ -126,6 +126,7 @@
             iconButtonSalir.Text = "&Salir";
             iconButtonSalir.TextAlign = ContentAlignment.MiddleRight;
             iconButtonSalir.UseVisualStyleBackColor = false;
+            iconButtonSalir.Click += iconButtonSalir_Click;
             // 
             // BtnBuscar
             // 
@@ -161,7 +162,6 @@
             txtFiltro.Name = "txtFiltro";
             txtFiltro.Size = new Size(682, 27);
             txtFiltro.TabIndex = 7;
-            txtFiltro.TextChanged += txtFiltro_TextChanged;
             // 
             // iconButtonEliminar
             // 
@@ -222,12 +222,12 @@
             iconButtonAgregar.UseVisualStyleBackColor = false;
             iconButtonAgregar.Click += iconButtonAgregar_Click;
             // 
-            // dataGridProductosView
+            // dataGridProductos
             // 
-            dataGridProductosView.AllowUserToAddRows = false;
-            dataGridProductosView.AllowUserToDeleteRows = false;
-            dataGridProductosView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridProductosView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridProductos.AllowUserToAddRows = false;
+            dataGridProductos.AllowUserToDeleteRows = false;
+            dataGridProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -236,15 +236,15 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridProductosView.DefaultCellStyle = dataGridViewCellStyle1;
-            dataGridProductosView.Location = new Point(3, 59);
-            dataGridProductosView.Margin = new Padding(3, 4, 3, 4);
-            dataGridProductosView.Name = "dataGridProductosView";
-            dataGridProductosView.ReadOnly = true;
-            dataGridProductosView.RowHeadersWidth = 51;
-            dataGridProductosView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridProductosView.Size = new Size(841, 489);
-            dataGridProductosView.TabIndex = 0;
+            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridProductos.Location = new Point(3, 59);
+            dataGridProductos.Margin = new Padding(3, 4, 3, 4);
+            dataGridProductos.Name = "dataGridProductos";
+            dataGridProductos.ReadOnly = true;
+            dataGridProductos.RowHeadersWidth = 51;
+            dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridProductos.Size = new Size(841, 489);
+            dataGridProductos.TabIndex = 0;
             // 
             // tabPageAgregarEditar
             // 
@@ -347,7 +347,7 @@
             tabControl.ResumeLayout(false);
             tabPageLista.ResumeLayout(false);
             tabPageLista.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductosView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
             tabPageAgregarEditar.ResumeLayout(false);
             tabPageAgregarEditar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericPrecio).EndInit();
@@ -358,21 +358,13 @@
 
         private Panel panel1;
         private Label label1;
-        private TabControl tabControl;
-        private TabPage tabPageLista;
         private FontAwesome.Sharp.IconButton btnEliminar;
         private FontAwesome.Sharp.IconButton btnEditar;
         private FontAwesome.Sharp.IconButton btnAgregar;
-        private DataGridView dataGridProductosView;
-        private TabPage tabPageAgregarEditar;
-        private FontAwesome.Sharp.IconButton btnCancelar;
-        private FontAwesome.Sharp.IconButton btnGuardar;
-        private TextBox txtNombre;
         private Label label2;
         private FontAwesome.Sharp.IconButton iconButtonEliminar;
         private FontAwesome.Sharp.IconButton iconButtonEditar;
         private FontAwesome.Sharp.IconButton iconButtonAgregar;
-        private NumericUpDown numericPrecio;
         private Label txtPrecio;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Label label3;
@@ -380,6 +372,14 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButtonSalir;
         private FontAwesome.Sharp.IconButton BtnBuscar;
-        private TextBox txtFiltro;
+        public DataGridView dataGridProductos;
+        public TabPage tabPageLista;
+        public TabControl tabControl;
+        public TabPage tabPageAgregarEditar;
+        public TextBox txtNombre;
+        public NumericUpDown numericPrecio;
+        public FontAwesome.Sharp.IconButton btnGuardar;
+        public FontAwesome.Sharp.IconButton btnCancelar;
+        public TextBox txtFiltro;
     }
 }
