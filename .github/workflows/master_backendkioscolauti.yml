@@ -61,5 +61,20 @@ jobs:
         with:
           app-name: 'backendkioscolauti'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.GOOGLE_CREDENTIALS }}
           package: .
+
+      - name: Set environment variable in Azure App Service
+        uses: Azure/appservice-settings@v1
+        with:
+          app-name: 'backendkioscolauti'
+          slot-name: 'Production'
+          app-settings-json: |
+            [
+              {
+                "name": "GOOGLE_CREDENTIALS",
+                "value": "${{ secrets.GOOGLE_CREDENTIALS }}",
+                "slotSetting": false
+              }
+            ]
           
