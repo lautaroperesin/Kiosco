@@ -1,6 +1,8 @@
+using Backend.Class;
 using Backend.DataContext;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +43,10 @@ FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-fcfea-firebase-adminsdk-7imt8-1e12043df9.json")
 });
+
+builder.Services
+    .AddAuthentication("Firebase")
+    .AddScheme<AuthenticationSchemeOptions, FirebaseAuthenticationHandler>("Firebase", null);
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
