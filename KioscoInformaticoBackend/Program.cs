@@ -9,10 +9,26 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
+DotNetEnv.Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Cargar configuración JWT del archivo de configuración
 var jwtSettings = builder.Configuration.GetSection("Jwt");
+
+var firebaseJson = Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS");
+
+if (string.IsNullOrWhiteSpace(firebaseJson))
+{
+    throw new Exception("Falta la variable GOOGLE_CREDENTIALS");
+}
+
+var credential = GoogleCredential.FromJson(firebaseJson);
+
+FirebaseApp.Create(new AppOptions
+{
+    Credential = credential
+});
 
 #region Implementacion de JWT propio
 // Configurar la autenticación
@@ -39,10 +55,10 @@ var jwtSettings = builder.Configuration.GetSection("Jwt");
 #endregion
 
 // Inicializar Firebase una sola vez
-FirebaseApp.Create(new AppOptions()
-{
-    Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-fcfea-firebase-adminsdk-7imt8-1e12043df9.json")
-});
+//FirebaseApp.Create(new AppOptions()
+//{
+//    Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-fcfea-firebase-adminsdk-7imt8-1e12043df9.json")
+//});
 
 builder.Services
     .AddAuthentication("Firebase")

@@ -5,6 +5,8 @@
 
 *.json
 
+.env
+
 # User-specific files
 *.rsuser
 *.suo
