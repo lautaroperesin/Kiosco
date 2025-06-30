@@ -39,7 +39,7 @@ var jwtSettings = builder.Configuration.GetSection("Jwt");
 // Inicializar Firebase una sola vez
 FirebaseApp.Create(new AppOptions()
 {
-    Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-312f4-firebase-adminsdk-d1tq0-17a0006285.json")
+    Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-fcfea-firebase-adminsdk-7imt8-1e12043df9.json")
 });
 
 builder.Services.AddAuthorization();
