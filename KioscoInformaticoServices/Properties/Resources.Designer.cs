@@ -22,21 +22,21 @@ namespace Service.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        public Resources() {
         }
         
         /// <summary>
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Service.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Service.Properties {
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,18 +61,36 @@ namespace Service.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a AIzaSyDXfbseUr4hjit-AUunCWLnjOTjaHGC_kw.
+        /// </summary>
+        public static string ApiKeyFirebase {
+            get {
+                return ResourceManager.GetString("ApiKeyFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a kioscoinformatico-fcfea.firebaseapp.com.
+        /// </summary>
+        public static string AuthDomainFirebase {
+            get {
+                return ResourceManager.GetString("AuthDomainFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a true.
         /// </summary>
-        internal static string Remoto {
+        public static string Remoto {
             get {
                 return ResourceManager.GetString("Remoto", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://datakioscoale.azurewebsites.net/api/.
+        ///   Busca una cadena traducida similar a https://backendkioscolauti.azurewebsites.net/.
         /// </summary>
-        internal static string UrlApi {
+        public static string UrlApi {
             get {
                 return ResourceManager.GetString("UrlApi", resourceCulture);
             }
@@ -81,7 +99,7 @@ namespace Service.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a https://localhost:7238/api/.
         /// </summary>
-        internal static string UrlApiLocal {
+        public static string UrlApiLocal {
             get {
                 return ResourceManager.GetString("UrlApiLocal", resourceCulture);
             }

@@ -47,7 +47,7 @@
                 try {
                     const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
                     console.log(userCredential);
-                    return userCredential.user.uid;
+                    return userCredential.user._lat;
                 } catch (error) {
                     console.error("Error en autenticación:", error.message);
                     return null;

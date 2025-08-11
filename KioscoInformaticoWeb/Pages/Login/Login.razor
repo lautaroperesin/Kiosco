@@ -63,7 +63,13 @@ else
 
     private async Task Loguear()
     {
-        var userId = await AuthService.SignInWithEmailPassword(email, password);
+        var jwt = await AuthService.SignInWithEmailPassword(email, password);
+		if (string.IsNullOrEmpty(jwt))
+		{
+			// Handle login failure (e.g., show an error message)
+			return;
+		}
+		GenericService<object>.jwtToken = jwt;
         isAuthenticated = await AuthService.IsUserAuthenticated();
         StateHasChanged();
         //NavigationManager.NavigateTo($"/");
