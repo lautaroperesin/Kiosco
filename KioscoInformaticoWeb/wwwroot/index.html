@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KioscoInformaticoWeb</title>
     <base href="/" />
+    <link rel="manifest" href="manifest.json">
+    <script src="pwa-install.js"></script>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -65,21 +67,21 @@
                     });
                     return userCredential.user.uid;
                     // Enviar correo de verificación
-                            //user.sendEmailVerification()
-                            //    .then(() => {
-                            //        console.log('Correo de verificación enviado.');
-                            //    })
-                            //    .catch((error) => {
-                            //        console.error('Error al enviar el correo de verificación:', error);
-                            //    });
-                       
-                    
+                    //user.sendEmailVerification()
+                    //    .then(() => {
+                    //        console.log('Correo de verificación enviado.');
+                    //    })
+                    //    .catch((error) => {
+                    //        console.error('Error al enviar el correo de verificación:', error);
+                    //    });
+
+
 
                 } catch (error) {
                     console.error("Error en autenticación:", error.message);
                     return null;
                 }
-                
+
             },
 
             signOut: async function () {
@@ -97,6 +99,13 @@
                 localStorage.removeItem(key);
             }
         };
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker registrado.'));
+        }
     </script>
 
     <script src="_framework/blazor.webassembly.js"></script>

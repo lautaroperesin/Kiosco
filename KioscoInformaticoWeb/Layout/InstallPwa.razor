@@ -1,0 +1,60 @@
+﻿@implements IAsyncDisposable
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+@if (!Installed)
+{
+    @if (CanInstall)
+    {
+        <button class="btn btn-primary" @onclick="PromptInstall">Instalar App</button>
+    }
+    else if (ShowIOSHint)
+    {
+        <div class="ios-hint">
+            Para instalar en iOS: toca <strong>Compartir</strong> → <strong>“Añadir a pantalla de inicio”</strong>.
+        </div>
+    }
+}
+
+@code {
+    private bool Installed;
+    private bool CanInstall;
+    private bool ShowIOSHint;
+
+    private DotNetObjectReference<InstallPwa>? _objRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _objRef = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("pwaInstall.init", _objRef);
+
+        Installed = await JS.InvokeAsync<bool>("pwaInstall.isInstalled");
+        CanInstall = await JS.InvokeAsync<bool>("pwaInstall.canInstall");
+
+        var isIOS = await JS.InvokeAsync<bool>("pwaInstall.isIOS");
+        var isSafari = await JS.InvokeAsync<bool>("pwaInstall.isSafari");
+        ShowIOSHint = !Installed && isIOS && isSafari && !CanInstall;
+
+        StateHasChanged();
+    }
+
+    private async Task PromptInstall()
+    {
+        var outcome = await JS.InvokeAsync<string>("pwaInstall.promptInstall");
+        CanInstall = await JS.InvokeAsync<bool>("pwaInstall.canInstall");
+        Installed = await JS.InvokeAsync<bool>("pwaInstall.isInstalled");
+        StateHasChanged();
+    }
+
+    [JSInvokable] public void OnCanInstallChanged(bool canInstall) { CanInstall = canInstall; StateHasChanged(); }
+    [JSInvokable] public void OnInstalled() { Installed = true; CanInstall = false; ShowIOSHint = false; StateHasChanged(); }
+    [JSInvokable] public void OnInstallStateChanged(bool installed) { Installed = installed; StateHasChanged(); }
+
+    public ValueTask DisposeAsync()
+    {
+        _objRef?.Dispose();
+        return ValueTask.CompletedTask;
+    }
+}
