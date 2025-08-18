@@ -129,7 +129,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
         builder => builder
-            .WithOrigins("https://www.webkioscolauti.azurewebsites.net", "https://localhost:7190")
+            .WithOrigins("https://webkioscolauti.azurewebsites.net", "https://localhost:7190")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
